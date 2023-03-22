@@ -47,11 +47,11 @@ function makeBook(bookshelfObject) {
 
   const buttonContainer = document.createElement("article");
   buttonContainer.classList.add("inner");
-  buttonContainer.append(titleBook, authorBook, bookYear);
 
   const container = document.createElement("div");
   container.classList.add("book_item");
   container.setAttribute("id", `book-${bookshelfObject.id}`);
+  container.append(titleBook, authorBook, bookYear);
 
   if (bookshelfObject.isCompleted) {
     const undoBotton = document.createElement("button");
