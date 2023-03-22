@@ -5,7 +5,7 @@ function generateId() {
   return +new Date();
 }
 
-function generateBookshelfObject(id, title, author, year, isCompleted) {
+function generateBookObject(id, title, author, year, isCompleted) {
   return {
     id,
     title,
@@ -29,38 +29,38 @@ function addBook() {
   const bookYear = document.getElementById("inputBookYear").value;
 
   const generatedID = generateId();
-  const bookshelfObject = generateBookshelfObject(generatedID, titleBook, authorBook, bookYear, false);
-  books.push(bookshelfObject);
+  const bookObject = generateBookObject(generatedID, titleBook, authorBook, bookYear, false);
+  books.push(bookObject);
 
   document.dispatchEvent(new Event(RENDER_EVENT));
 }
 
-function makeBook(bookshelfObject) {
+function makeBook(bookObject) {
   const titleBook = document.createElement("h2");
-  titleBook.innerText = bookshelfObject.title;
+  titleBook.innerText = bookObject.title;
 
   const authorBook = document.createElement("p");
-  authorBook.innerText = bookshelfObject.author;
+  authorBook.innerText = bookObject.author;
 
   const bookYear = document.createElement("p");
-  bookYear.innerText = bookshelfObject.year;
+  bookYear.innerText = bookObject.year;
 
   const buttonContainer = document.createElement("div");
   buttonContainer.classList.add("inner");
 
   const container = document.createElement("article");
   container.classList.add("book_item");
-  container.setAttribute("id", `book-${bookshelfObject.id}`);
+  container.setAttribute("id", `book-${bookObject.id}`);
   container.append(titleBook, authorBook, bookYear);
 
-  if (bookshelfObject.isCompleted) {
-    const undoBotton = document.createElement("button");
-    undoBotton.classList.add("green");
-    undoBotton.setAttribute("id", "button-undo");
-    undoBotton.innerText = "Sudah Selesai Dibaca";
+  if (bookObject.isCompleted) {
+    const undoButton = document.createElement("button");
+    undoButton.classList.add("green");
+    undoButton.setAttribute("id", "button-undo");
+    undoButton.innerText = "Sudah Selesai Dibaca";
 
-    undoBotton.addEventListener("click", function () {
-      undoBookFromCompleted(bookshelfObject.id);
+    undoButton.addEventListener("click", function () {
+      undoBookFromCompleted(bookObject.id);
     });
 
     const trashButton = document.createElement("button");
@@ -69,10 +69,10 @@ function makeBook(bookshelfObject) {
     trashButton.innerText = "Hapus Buku";
 
     trashButton.addEventListener("click", function () {
-      removeBookFromCompleted(bookshelfObject.id);
+      removeBookFromCompleted(bookObject.id);
     });
 
-    container.append(undoBotton, trashButton);
+    container.append(undoButton, trashButton);
   } else {
     const undoButton = document.createElement("button");
     undoButton.classList.add("green");
@@ -80,7 +80,7 @@ function makeBook(bookshelfObject) {
     undoButton.innerText = "Sudah Selesai";
 
     undoButton.addEventListener("click", function () {
-      undoBookFromCompleted(bookshelfObject.id);
+      undoBookFromCompleted(bookObject.id);
     });
 
     const trashButton = document.createElement("button");
@@ -89,9 +89,9 @@ function makeBook(bookshelfObject) {
     trashButton.innerText = "Hapus Buku";
 
     trashButton.addEventListener("click", function () {
-      removeBookFromCompleted(bookshelfObject.id);
+      removeBookFromCompleted(bookObject.id);
     });
-    container.append(undoBotton, trashButton);
+    container.append(undoButton, trashButton);
   }
 
   return container;
