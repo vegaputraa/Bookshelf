@@ -45,17 +45,17 @@ function makeBook(bookshelfObject) {
   const bookYear = document.createElement("p");
   bookYear.innerText = bookshelfObject.year;
 
-  const buttonContainer = document.createElement("article");
+  const buttonContainer = document.createElement("div");
   buttonContainer.classList.add("inner");
 
-  const container = document.createElement("div");
+  const container = document.createElement("article");
   container.classList.add("book_item");
   container.setAttribute("id", `book-${bookshelfObject.id}`);
   container.append(titleBook, authorBook, bookYear);
 
   if (bookshelfObject.isCompleted) {
     const undoBotton = document.createElement("button");
-    undoBotton.classList.add("undo-button", "green");
+    undoBotton.classList.add("green");
     undoBotton.setAttribute("id", "button-undo");
     undoBotton.innerText = "Sudah Selesai Dibaca";
 
@@ -64,7 +64,7 @@ function makeBook(bookshelfObject) {
     });
 
     const trashButton = document.createElement("button");
-    trashButton.classList.add("trash-button", "red");
+    trashButton.classList.add("red");
     trashButton.setAttribute("id", "trash-button");
     trashButton.innerText = "Hapus Buku";
 
@@ -72,6 +72,25 @@ function makeBook(bookshelfObject) {
       removeBookFromCompleted(bookshelfObject.id);
     });
 
+    container.append(undoBotton, trashButton);
+  } else {
+    const undoButton = document.createElement("button");
+    undoButton.classList.add("green");
+    undoButton.setAttribute("id", "button-undo");
+    undoButton.innerText = "Sudah Selesai";
+
+    undoButton.addEventListener("click", function () {
+      undoBookFromCompleted(bookshelfObject.id);
+    });
+
+    const trashButton = document.createElement("button");
+    trashButton.classList.add("red");
+    trashButton.setAttribute("id", "trash-button");
+    trashButton.innerText = "Hapus Buku";
+
+    trashButton.addEventListener("click", function () {
+      removeBookFromCompleted(bookshelfObject.id);
+    });
     container.append(undoBotton, trashButton);
   }
 
