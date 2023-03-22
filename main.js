@@ -37,7 +37,7 @@ function addBook() {
 
 function makeBook(bookshelfObject) {
   const titleBook = document.createElement("h2");
-  titleBook.innerText = bookshelfObject.book;
+  titleBook.innerText = bookshelfObject.title;
 
   const authorBook = document.createElement("p");
   authorBook.innerText = bookshelfObject.author;
