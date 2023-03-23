@@ -4,6 +4,7 @@ const SAVED_EVENT = "saved-book";
 const STORAGE_KEY = "BOOKSHELF_APP";
 const INCOMPLETED_LIST_BOOK_ID = "incompleteBookshelfList";
 const COMPLETED_LIST_BOOK_ID = "completeBookShelfList";
+const BOOK_ITEMID = "itemId";
 
 function isStorageExist() {
   if (typeof Storage === undefined) {
@@ -189,8 +190,8 @@ function findBook(bookId) {
     if (bookItem.id === bookId) {
       return bookItem;
     }
-    return null;
   }
+  return null;
 }
 
 function findBookIndex(bookId) {
@@ -215,5 +216,18 @@ checkbox.addEventListener("change", function () {
     check = false;
 
     document.querySelector("span").innerText = "Belum selesai dibaca";
+  }
+});
+
+document.getElementById("searchBook").addEventListener("submit", function (event) {
+  event.preventDefault();
+  const searchBook = document.getElementById("searchBookTitle").value.toLowerCase();
+  const bookList = document.querySelectorAll(".book_item > h2");
+  for (const book of bookList) {
+    if (book.innerText.toLowerCase().includes(searchBook)) {
+      book.parentElement.parentElement.style.display = "block";
+    } else {
+      book.parentElement.parentElement.style.display = "none";
+    }
   }
 });
